@@ -1,0 +1,37 @@
+#!/bin/bash
+
+scripts_dir="./scripts"
+
+if [[ "$PATH" == *"$scripts_dir"* ]]; then
+    echo "The '${scripts_dir}' is already in the path. Nothing to do."
+else
+    echo "'${scripts_dir}' was not found in PATH. Adding it."
+    export PATH="${PATH}:${scripts_dir}"
+fi
+
+dotvenv_path="$(pwd)/.venv"
+
+if [ ! -f "$dotvenv_path" ]; then
+    echo "Did not detect the .venv directory."
+    echo "Running 'setup' to initialize the project (see 'scripts/setup')."
+    setup
+    setup_success="$?"
+fi
+
+# We do not want to call exit in this script, since it is likely called
+# via 'source'. This would exit the session.
+# --> Have explicit success check.
+if [[ "$setup_success" == "0" ]]; then
+    if [[ "$VIRTUAL_ENV" == "" ]]; then
+        echo "Activating virtual environment."
+        source $dotvenv_path
+    elif [[ "$VIRTUAL_ENV" == "$dotvenv_path" ]]; then
+        echo "The virtual environment is already activated. Skipping."
+    else
+        echo "Virtual venv '${VIRTUAL_ENV}' is currently activated."
+        echo "Deactivating it and activating the project .venv."
+
+        deactivate
+        source $dotvenv_path
+    fi
+fi

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+uv run --active ruff check
+uv run --active ty check
