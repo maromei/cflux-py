@@ -11,7 +11,7 @@ fi
 
 dotvenv_path="$(pwd)/.venv"
 
-if [ ! -f "$dotvenv_path" ]; then
+if [ ! -d "$dotvenv_path" ]; then
     echo "Did not detect the .venv directory."
     echo "Running 'setup' to initialize the project (see 'scripts/setup')."
     setup
