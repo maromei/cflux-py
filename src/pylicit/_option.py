@@ -1,0 +1,83 @@
+from __future__ import annotations
+from typing import (
+    Callable,
+    Protocol,
+    final,
+    Literal,
+    runtime_checkable,
+    TypeGuard,
+    TypeVar,
+)
+
+
+T = TypeVar("T")
+S = TypeVar("S")
+
+
+type _MapFunc[T, S] = Callable[[T], S]
+
+
+@runtime_checkable
+class OptionProtocol[T](Protocol):
+    value: T | None
+    def map[S](self, func: _MapFunc[T, S]) -> OptionProtocol[S]: ...
+    def map_or[S](
+        self, func: _MapFunc[T, S], default: S
+    ) -> OptionProtocol[S]: ...
+    def is_some(self) -> bool: ...
+    def is_nothing(self) -> bool: ...
+
+
+def is_some[T](obj: Option[T]) -> TypeGuard[Some[T]]:
+    return obj.is_some()
+
+
+def is_nothing[T](obj: Option[T]) -> TypeGuard[Nothing]:
+    return obj.is_nothing()
+
+
+@final
+class Some[T](OptionProtocol[T]):
+
+    value: T
+
+    __slots__: tuple[Literal["value"]] = ("value", )
+    __match_args__: tuple[Literal["value"]] = ("value",)
+
+    def __init__(self, value: T) -> None:
+        self.value = value
+
+    def map[S](self, func: _MapFunc[T, S]) -> Some[S]:
+        new_value: S = func(self.value)
+        return Some(new_value)
+
+    def map_or[S](self, func: _MapFunc[T, S], default: S) -> Some[S]:
+        return self.map(func)
+
+    def is_some(self) -> Literal[True]:
+        return True
+
+    def is_nothing(self) -> Literal[False]:
+        return False
+
+
+@final
+class Nothing(OptionProtocol):
+
+    slots: tuple[()] = ()
+    __match_args__: tuple[()] = ()
+
+    def map[T, S](cls, func: _MapFunc[T, S]) -> Nothing:
+        return Nothing()
+
+    def map_or[T, S](self, func: _MapFunc[T, S], default: S) -> Nothing:
+        return Nothing()
+
+    def is_some(self) -> Literal[False]:
+        return False
+
+    def is_nothing(self) -> Literal[True]:
+        return True
+
+
+type Option[T] = Some[T] | Nothing
