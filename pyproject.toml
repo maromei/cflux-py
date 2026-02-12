@@ -1,7 +1,7 @@
 [project]
-name = "pylicit"
+name = "overt"
 version = "0.0.0"
-description = "Explicit Python"
+description = "Writing overt/explicit Python"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []

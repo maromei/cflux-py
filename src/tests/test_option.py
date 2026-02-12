@@ -1,6 +1,6 @@
 from typing import assert_never, assert_type, Never
 
-from pylicit import Some, Nothing, Option, OptionProtocol, Unit
+from overt import Some, Nothing, Option, OptionProtocol, Unit
 
 
 def test_protocol_implementation():

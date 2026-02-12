@@ -1,4 +1,4 @@
-# pylicit - Explicit Python
+# overt - Explicit Python
 
 # Architecture
 
@@ -7,7 +7,7 @@
 --> There is only one place to import everything
 
 ```python
-from pylicit import Option, Unit
+from overt import Option, Unit
 ```
 
 * The actual definitions are done in private modules. F.e `_options.py`
@@ -53,7 +53,7 @@ Some Commands that might be useful:
 
 ```python
 from typing import assert_type, assert_never
-from pylicit import Option
+from overt import Option
 
 # snip...: some code that sets some_value
 
@@ -77,7 +77,7 @@ A workaround requires the `typing.cast` function. Simply adding the typehint
 
 ```python
 from typing import assert_type, assert_never, cast
-from pylicit import Option
+from overt import Option
 
 # snip...: some code that sets some_value
 
