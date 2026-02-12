@@ -1,4 +1,4 @@
-from typing import assert_type, assert_never, cast
+from typing import assert_type, assert_never
 from overt import Some, Nothing, Option
 from overt._option import Skippable
 
@@ -39,25 +39,19 @@ def test_option_with():
 
 def assert_option[T](opt: Option[T]):
     with Skippable, opt.get_some() as val:
-        a = val
         assert_type(val, T)
 
 
 def assert_option_explicit_type(opt: Option[str]):
     with Skippable, opt.get_some() as val:
-        a = val
         assert_type(val, str)
 
 
 def assert_some[T](opt: Some[T]):
-    opt = cast(Some[T], opt)
     with Skippable, opt.get_some() as val:
-        a = val
         assert_type(val, T)
 
 
 def assert_some_explicit(opt: Some[str] = Some("a")):
-    opt = cast(Some[str], opt)
     with Skippable, opt.get_some() as val:
-        a = val
         assert_type(val, str)
