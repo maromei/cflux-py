@@ -7,7 +7,10 @@ from typing import (
     runtime_checkable,
     TypeGuard,
     TypeVar,
+    NoReturn,
 )
+
+from overt._error import UnpackingException
 
 
 T = TypeVar("T")
@@ -20,12 +23,14 @@ type _MapFunc[T, S] = Callable[[T], S]
 @runtime_checkable
 class OptionProtocol[T](Protocol):
     value: T | None
+
     def map[S](self, func: _MapFunc[T, S]) -> OptionProtocol[S]: ...
     def map_or[S](
         self, func: _MapFunc[T, S], default: S
     ) -> OptionProtocol[S]: ...
     def is_some(self) -> bool: ...
     def is_nothing(self) -> bool: ...
+    def unwrap(self) -> T: ...
 
 
 def is_some[T](obj: Option[T]) -> TypeGuard[Some[T]]:
@@ -38,10 +43,9 @@ def is_nothing[T](obj: Option[T]) -> TypeGuard[Nothing]:
 
 @final
 class Some[T](OptionProtocol[T]):
-
     value: T
 
-    __slots__: tuple[Literal["value"]] = ("value", )
+    __slots__: tuple[Literal["value"]] = ("value",)
     __match_args__: tuple[Literal["value"]] = ("value",)
 
     def __init__(self, value: T) -> None:
@@ -60,10 +64,12 @@ class Some[T](OptionProtocol[T]):
     def is_nothing(self) -> Literal[False]:
         return False
 
+    def unwrap(self) -> T:
+        return self.value
+
 
 @final
 class Nothing(OptionProtocol):
-
     slots: tuple[()] = ()
     __match_args__: tuple[()] = ()
 
@@ -78,6 +84,9 @@ class Nothing(OptionProtocol):
 
     def is_nothing(self) -> Literal[True]:
         return True
+
+    def unwrap(self) -> NoReturn:
+        raise UnpackingException("Nothing value was unpacked.")
 
 
 type Option[T] = Some[T] | Nothing

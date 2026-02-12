@@ -1,6 +1,15 @@
 from typing import assert_never, assert_type, Never
 
-from overt import Some, Nothing, Option, OptionProtocol, Unit
+import pytest
+
+from overt import (
+    Some,
+    Nothing,
+    Option,
+    OptionProtocol,
+    Unit,
+    UnpackingException,
+)
 
 
 def test_protocol_implementation():
@@ -23,7 +32,7 @@ def get_some_or_nothing(i: int) -> Option[str]:
 
 
 def test_types_assertion():
-    """The following tests check if the type checker can infer the correct 
+    """The following tests check if the type checker can infer the correct
     types. To achieve this, errors are only fully detected when running
     the type checker over this file.
 
@@ -66,7 +75,6 @@ def test_types_assertion():
     assert_type(expl_noth_map, Nothing)
 
     def assert_match_some_general[T](option: Option[T]):
-
         match option:
             case Some():
                 assert True
@@ -78,7 +86,6 @@ def test_types_assertion():
                 assert_never(some_value)
 
     def assert_match_some_value[T](option: Option[T], value: T):
-
         match option:
             case Some(val):
                 a = val
@@ -91,9 +98,7 @@ def test_types_assertion():
                 assert_type(a, Never)
                 assert_never(some_value)
 
-
     def assert_match_nothing[T](option: Option[T]):
-
         match option:
             case Some():
                 assert False
@@ -104,3 +109,14 @@ def test_types_assertion():
                 assert_type(a, Never)
                 assert_never(some_value)
 
+
+def test_unwrap():
+    some: Option[str] = get_some_or_nothing(1)
+    nothing: Option[str] = get_some_or_nothing(2)
+
+    unwraped_value: str = some.unwrap()
+    assert unwraped_value == "a"
+
+    with pytest.raises(UnpackingException):
+        unwraped_value = nothing.unwrap()
+        assert_type(unwraped_value, str)
