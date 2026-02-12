@@ -45,3 +45,53 @@ Some Commands that might be useful:
 
 * `style-check`: Runs linter and type checker
 * `style-format`: Runs formatter
+
+# Limitations
+
+* (2026-02-12): `ty` currently does not infer the type of an unpacked value
+  in a match statement
+
+```python
+from typing import assert_type, assert_never
+from pylicit import Option
+
+# snip...: some code that sets some_value
+
+some_value: Option[int]
+
+match some_value:
+    case Some(unpacked_value):
+        # ty will complain here
+        # its infered type is @Todo
+        assert_type(unpacked_value, int)
+    case Nothing():
+        pass
+    case _:
+        assert_never(some_value)
+```
+
+There is a test that will test this case. It will currently always fail.
+<br>
+A workaround requires the `typing.cast` function. Simply adding the typehint
+`unpacked_value: int` will not work.
+
+```python
+from typing import assert_type, assert_never, cast
+from pylicit import Option
+
+# snip...: some code that sets some_value
+
+some_value: Option[int]
+
+match some_value:
+    case Some(unpacked_value):
+        unpacked_value = cast(int, unpacked_value)
+        assert_type(unpacked_value, int)
+    case Nothing():
+        pass
+    case _:
+        assert_never(some_value)
+```
+
+This has the drawback of not giving a typeerror when the `some_value`
+ever switches in type.
