@@ -8,9 +8,11 @@ from typing import (
     TypeGuard,
     TypeVar,
     NoReturn,
+    Final,
 )
 
 from overt._error import UnpackingException
+from overt._skippable import _Skip, Skippable, _ValueWith, _Skippable
 
 
 T = TypeVar("T")
@@ -31,6 +33,7 @@ class OptionProtocol[T](Protocol):
     def is_some(self) -> bool: ...
     def is_nothing(self) -> bool: ...
     def unwrap(self) -> T: ...
+    def get_some(self) -> _ValueWith[T]: ...
 
 
 def is_some[T](obj: Option[T]) -> TypeGuard[Some[T]]:
@@ -67,9 +70,14 @@ class Some[T](OptionProtocol[T]):
     def unwrap(self) -> T:
         return self.value
 
+    def get_some(self) -> _ValueWith[T]:
+        return _ValueWith(self.value)
+
 
 @final
 class Nothing(OptionProtocol):
+    Skip: Final[_Skippable] = Skippable
+
     slots: tuple[()] = ()
     __match_args__: tuple[()] = ()
 
@@ -87,6 +95,9 @@ class Nothing(OptionProtocol):
 
     def unwrap(self) -> NoReturn:
         raise UnpackingException("Nothing value was unpacked.")
+
+    def get_some(self) -> NoReturn:
+        raise _Skip
 
 
 type Option[T] = Some[T] | Nothing
