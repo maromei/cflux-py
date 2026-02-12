@@ -1,5 +1,17 @@
 # pylicit - Explicit Python
 
+# Architecture
+
+* All classes / functions are re-exported to the packages `__init__.py`
+
+--> There is only one place to import everything
+
+```python
+from pylicit import Option, Unit
+```
+
+* The actual definitions are done in private modules. F.e `_options.py`
+
 ## Development Environment
 
 ### Dependencies
