@@ -1,4 +1,64 @@
 #!/bin/bash
 
+if [[ "$@" == *"--help"* || "$@" == *"-h"* ]]; then
+
+    echo -e "\e[34m\e[1m\e[4mRun Tests for this project.\e[0m"
+    echo -e ""
+    echo -e "Possible Flags:"
+    echo -e ""
+    echo -e "\e[1m-h --help\e[0m        ... Display this message. Ignore everything else."
+    echo -e "\e[1m   --skip-typing\e[0m ... Skip the typecheckers running over the code."
+    echo -e ""
+
+    exit 0
+fi
+
+type_summary=""
+
+function print-heading() {
+
+    local name=$1
+    local title_line="### $name ###"
+    local num_tags=${#title_line}
+
+    local tagline=""
+    for _ in $(seq 1 $num_tags); do
+        local tagline="${tagline}#"
+    done
+
+    echo ""
+    echo $tagline
+    echo $title_line
+    echo $tagline
+    echo ""
+}
+
+function uv-run-with-last-line-capture() {
+    local uv_command="uv run $@"
+    local output=$(script -q -c "$uv_command" /dev/null)
+    local lastline=$(printf "$output" | tail -1 | sed "s/\r$//")
+
+    printf "%s\n" "$output"
+
+    type_summary="${type_summary}\n${1}: ${lastline}"
+}
+
+
 uv run pytest src/tests
-uv run ty check src/tests
+
+if [[ "$@" != *"--skip-typing"* ]]; then
+    print-heading "ty"
+    uv-run-with-last-line-capture ty check src/tests
+
+    print-heading "pyrefly"
+    uv-run-with-last-line-capture pyrefly check src/tests
+
+    print-heading "pyright"
+    uv-run-with-last-line-capture pyright src/tests
+
+    print-heading "basedpyright"
+    uv-run-with-last-line-capture basedpyright src/tests --level error
+
+    print-heading "Summary"
+    printf "$type_summary"
+fi

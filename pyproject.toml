@@ -17,6 +17,9 @@ ignore = ["E701"]
 
 [dependency-groups]
 dev = [
+    "basedpyright>=1.38.0",
+    "pyrefly>=0.52.0",
+    "pyright>=1.1.408",
     "pytest>=9.0.2",
     "ruff>=0.14.14",
     "ty>=0.0.16",
