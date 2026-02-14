@@ -16,6 +16,8 @@ if [ ! -d "$dotvenv_path" ]; then
     echo "Running 'setup' to initialize the project (see 'scripts/setup')."
     setup
     setup_success="$?"
+else 
+    setup_success="0"
 fi
 
 # We do not want to call exit in this script, since it is likely called
@@ -24,7 +26,7 @@ fi
 if [[ "$setup_success" == "0" ]]; then
     if [[ "$VIRTUAL_ENV" == "" ]]; then
         echo "Activating virtual environment."
-        source $dotvenv_path
+        source $dotvenv_path/bin/activate
     elif [[ "$VIRTUAL_ENV" == "$dotvenv_path" ]]; then
         echo "The virtual environment is already activated. Skipping."
     else
@@ -32,6 +34,6 @@ if [[ "$setup_success" == "0" ]]; then
         echo "Deactivating it and activating the project .venv."
 
         deactivate
-        source $dotvenv_path
+        source $dotvenv_path/bin/activate
     fi
 fi
