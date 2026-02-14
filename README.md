@@ -45,14 +45,30 @@ Some Commands that might be useful:
 
 * `style-check`: Runs linter and type checker
 * `style-format`: Runs formatter
-* `test-all`: Run the tests. 
+* `test-all`: Run the tests.
     * The tests contain calls to other typecheckers. This can be skipped
-      by passing the `--skip-typing` flag. 
+      by passing the `--skip-typing` flag.
     * Use the `test-all --help` command for more information.
 
-## Limitations
+## Supported Type Checker
 
-* (2026-02-12): `ty` currently does not infer the type of an unpacked value
+While `ty` is mainly used during the development, the tests also run
+additional typecheckers to see how the type-inference works.
+<br>
+The following table contains a summary of the support.
+Some type checkerr have additional information in a subsection below.
+
+| type checker   | is tested for | functionality                                                              |
+| -------------- | ------------- | -------------------------------------------------------------------------- |
+| `ty`           | &check;       | Missing feature in `ty` for match value unpacking.                         |
+| `pyrefly`      | &check;       | Failing the exhaustiveness checks in the match statement.                  |
+| `pyright`      | &check;       | &check; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
+| `basedpyright` | &check;       | &quest; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
+| `mypy`         | &cross;       | &quest; Don't wanna deal with stub-files.                                  |
+
+### ty
+
+* `ty =< 0.0.16` currently does not infer the type of an unpacked value
   in a match statement
 
 ```python
