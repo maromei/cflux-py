@@ -24,7 +24,6 @@ type _MapFunc[T, S] = Callable[[T], S]
 
 @runtime_checkable
 class OptionProtocol[T](Protocol):
-    value: T | None
 
     def map[S](self, func: _MapFunc[T, S]) -> OptionProtocol[S]: ...
     def map_or[S](
@@ -45,7 +44,7 @@ def is_nothing[T](obj: Option[T]) -> TypeGuard[Nothing]:
 
 
 @final
-class Some[T](OptionProtocol[T]):
+class Some[T]:
     value: T
 
     __slots__: tuple[Literal["value"]] = ("value",)
@@ -75,7 +74,7 @@ class Some[T](OptionProtocol[T]):
 
 
 @final
-class Nothing(OptionProtocol):
+class Nothing:
     Skip: Final[_Skippable] = Skippable
 
     slots: tuple[()] = ()
