@@ -50,7 +50,7 @@ Some Commands that might be useful:
       by passing the `--skip-typing` flag. 
     * Use the `test-all --help` command for more information.
 
-# Limitations
+## Limitations
 
 * (2026-02-12): `ty` currently does not infer the type of an unpacked value
   in a match statement
