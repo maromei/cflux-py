@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -eu
+set -o pipefail
+
 if [[ "$@" == *"--help"* || "$@" == *"-h"* ]]; then
 
     echo -e "\e[34m\e[1m\e[4mRun Tests for this project.\e[0m"
@@ -33,18 +36,45 @@ function print-heading() {
     echo ""
 }
 
+function bold-underline() {
+    printf "\e[1m\e[4m$@\e[0m"
+}
+
+function pretty-print-pytest() {
+
+    local uv_command="uv run $@"
+    local output=$(script -q -c "$uv_command" /dev/null)
+    local lastline=$(echo "$output" | tail -1 | sed "s/\r$//")
+    local line_title="pytest: "
+
+    local lastline=$(printf "$lastline" | sed "s/=\{${#line_title}\}//")
+
+    printf "%s\n" "$output"
+
+    local lastline="$(bold-underline $line_title)${lastline}"
+    type_summary="${type_summary}\n${lastline}"
+}
+
 function uv-run-with-last-line-capture() {
+
+    if [[ "$1" == "pytest" ]]; then
+        pretty-print-pytest "$@"
+        return
+    fi
+
     local uv_command="uv run $@"
     local output=$(script -q -c "$uv_command" /dev/null)
     local lastline=$(printf "$output" | tail -1 | sed "s/\r$//")
 
     printf "%s\n" "$output"
 
-    type_summary="${type_summary}\n${1}: ${lastline}"
+    local line_title=$(bold-underline $1)
+    type_summary="${type_summary}\n${line_title}: ${lastline}"
 }
 
 
-uv run pytest src/tests
+uv-run-with-last-line-capture pytest src/tests
+
 
 if [[ "$@" != *"--skip-typing"* ]]; then
     print-heading "ty"
