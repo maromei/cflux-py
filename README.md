@@ -45,6 +45,10 @@ Some Commands that might be useful:
 
 * `style-check`: Runs linter and type checker
 * `style-format`: Runs formatter
+* `test-all`: Run the tests. 
+    * The tests contain calls to other typecheckers. This can be skipped
+      by passing the `--skip-typing` flag. 
+    * Use the `test-all --help` command for more information.
 
 # Limitations
 
