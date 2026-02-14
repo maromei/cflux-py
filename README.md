@@ -1,6 +1,6 @@
 # overt - Explicit Python
 
-# Architecture
+## Architecture
 
 * All classes / functions are re-exported to the packages `__init__.py`
 
