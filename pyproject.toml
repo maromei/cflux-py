@@ -1,7 +1,7 @@
 [project]
-name = "overt"
+name = "cflow"
 version = "0.0.0"
-description = "Writing overt/explicit Python"
+description = "Control flow constructs for python."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []

@@ -1,4 +1,4 @@
-# overt - Explicit Python
+# cflow - Explicit Python
 
 ## Architecture
 
@@ -7,7 +7,7 @@
 --> There is only one place to import everything
 
 ```python
-from overt import Option, Unit
+from cflow import Option, Unit
 ```
 
 * The actual definitions are done in private modules. F.e `_options.py`
@@ -73,7 +73,7 @@ Some type checkerr have additional information in a subsection below.
 
 ```python
 from typing import assert_type, assert_never
-from overt import Option
+from cflow import Option
 
 # snip...: some code that sets some_value
 
@@ -97,7 +97,7 @@ A workaround requires the `typing.cast` function. Simply adding the typehint
 
 ```python
 from typing import assert_type, assert_never, cast
-from overt import Option
+from cflow import Option
 
 # snip...: some code that sets some_value
 
