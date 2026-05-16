@@ -57,7 +57,7 @@ class Some[T]:
         new_value: S = func(self.value)
         return Some(new_value)
 
-    def map_or[S](self, func: _MapFunc[T, S], default: S) -> Some[S]:
+    def map_or[S](self, func: _MapFunc[T, S], default: S) -> Some[S]:  # pyright: ignore[reportUnusedParameter]
         return self.map(func)
 
     def is_some(self) -> Literal[True]:
@@ -80,11 +80,11 @@ class Nothing:
     slots: tuple[()] = ()
     __match_args__: tuple[()] = ()
 
-    def map[T, S](cls, func: _MapFunc[T, S]) -> Nothing:
+    def map[T, S](self, func: _MapFunc[T, S]) -> Nothing:  # pyright: ignore[reportUnusedParameter]
         return Nothing()
 
-    def map_or[T, S](self, func: _MapFunc[T, S], default: S) -> Nothing:
-        return Nothing()
+    def map_or[T, S](self, func: _MapFunc[T, S], default: S) -> S:  # pyright: ignore[reportUnusedParameter]
+        return default
 
     def is_some(self) -> Literal[False]:
         return False
