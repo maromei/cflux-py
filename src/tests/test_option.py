@@ -43,38 +43,38 @@ def test_types_assertion():
     some_value = get_some_or_nothing(1)
     nothing = get_some_or_nothing(2)
 
-    assert_type(some_value, Option[str])
-    assert_type(nothing, Option[str])
+    _ = assert_type(some_value, Option[str])
+    _ = assert_type(nothing, Option[str])
 
     some_str = some_value.map(map_str_str)
     some_int = some_value.map(map_str_int)
     noth_str = nothing.map(map_str_str)
     noth_int = nothing.map(map_str_int)
 
-    assert_type(some_str, Option[str])
-    assert_type(some_int, Option[int])
-    assert_type(noth_str, Option[str])
-    assert_type(noth_int, Option[int])
+    _ = assert_type(some_str, Option[str])
+    _ = assert_type(some_int, Option[int])
+    _ = assert_type(noth_str, Option[str])
+    _ = assert_type(noth_int, Option[int])
 
     explicit_some = Some("a")
     explicit_some_map = explicit_some.map(map_str_str)
 
-    assert_type(explicit_some, Some[str])
-    assert_type(explicit_some_map, Some[str])
+    _ = assert_type(explicit_some, Some[str])
+    _ = assert_type(explicit_some_map, Some[str])
 
     expl_some_str = Some("a")
     expl_some_map_int = expl_some_str.map(map_str_int)
 
-    assert_type(expl_some_str, Some[str])
-    assert_type(expl_some_map_int, Some[int])
+    _ = assert_type(expl_some_str, Some[str])
+    _ = assert_type(expl_some_map_int, Some[int])
 
     expl_noth = Nothing()
     expl_noth_map = expl_noth.map(map_str_str)
 
-    assert_type(expl_noth, Nothing)
-    assert_type(expl_noth_map, Nothing)
+    _ = assert_type(expl_noth, Nothing)
+    _ = assert_type(expl_noth_map, Nothing)
 
-    def assert_match_some_general[T](option: Option[T]):
+    def assert_match_some_general[T](option: Option[T]):  # pyright: ignore[reportUnusedFunction]
         match option:
             case Some():
                 assert True
@@ -82,23 +82,24 @@ def test_types_assertion():
                 assert False
             case _:
                 a = some_value
-                assert_type(a, Never)
+                _ = assert_type(a, Never)
                 assert_never(some_value)
 
-    def assert_match_some_value[T](option: Option[T], value: T):
+    def assert_match_some_value[T](option: Option[T], value: T):  # pyright: ignore[reportUnusedFunction]
+
         match option:
             case Some(val):
                 a = val
                 assert val == value
-                assert_type(val, T)
+                _ = assert_type(val, T)
             case Nothing():
                 assert False
             case _:
                 a = some_value
-                assert_type(a, Never)
+                _ = assert_type(a, Never)
                 assert_never(some_value)
 
-    def assert_match_nothing[T](option: Option[T]):
+    def assert_match_nothing[T](option: Option[T]): # pyright: ignore[reportUnusedFunction]
         match option:
             case Some():
                 assert False
@@ -106,7 +107,7 @@ def test_types_assertion():
                 assert True
             case _:
                 a = some_value
-                assert_type(a, Never)
+                _ = assert_type(a, Never)
                 assert_never(some_value)
 
 
@@ -119,4 +120,4 @@ def test_unwrap():
 
     with pytest.raises(UnpackingException):
         unwraped_value = nothing.unwrap()
-        assert_type(unwraped_value, str)
+        _ = assert_type(unwraped_value, str)
