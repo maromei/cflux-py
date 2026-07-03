@@ -32,14 +32,19 @@
   empty.unwrap()  # raises UnpackingException
   ```
 
-* **Skippable Blocks**: Skip block execution if value is Nothing.
+* **For Loop unpacking**: Run code in a block if the value is some, using for loops
   ```python
   from cflow import Skippable
 
-  with Skippable, val.get_some() as x:
-      print(x)
-  ```
+  some: Option[str] = Some("a")
+  nothing: Option[str] = Nothing()
 
+  for value in some:
+      print("This messag will be printed.")
+
+  for value in nothing:
+      print("This message will not be printed.")
+  ```
 
 ## Architecture
 
