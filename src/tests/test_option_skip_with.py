@@ -21,7 +21,7 @@ def test_some_nothing_with():
     with Skippable, nothing.get_some() as val:
         assert False
 
-    with Skippable, nothing.get_some() as val:
+    with Skippable, nothing.get_some() as val:  # pyright: ignore[reportUnreachable]
         assert_never(val)
 
 
@@ -30,7 +30,7 @@ def test_option_with():
     opt_none: Option[str] = get_some_or_nothing(2)
 
     with Skippable, opt_some.get_some() as val:
-        assert_type(val, str)
+        _ = assert_type(val, str)
         assert val == "a"
 
     with Skippable, opt_none.get_some() as val:
@@ -39,19 +39,19 @@ def test_option_with():
 
 def assert_option[T](opt: Option[T]):
     with Skippable, opt.get_some() as val:
-        assert_type(val, T)
+        _ = assert_type(val, T)
 
 
 def assert_option_explicit_type(opt: Option[str]):
     with Skippable, opt.get_some() as val:
-        assert_type(val, str)
+        _ = assert_type(val, str)
 
 
 def assert_some[T](opt: Some[T]):
     with Skippable, opt.get_some() as val:
-        assert_type(val, T)
+        _ = assert_type(val, T)
 
 
 def assert_some_explicit(opt: Some[str] = Some("a")):
     with Skippable, opt.get_some() as val:
-        assert_type(val, str)
+        _ = assert_type(val, str)
