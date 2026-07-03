@@ -8,7 +8,9 @@ from typing import (
     TypeGuard,
     TypeVar,
     NoReturn,
+    Never,
 )
+from collections.abc import Iterator
 
 from cflow._error import UnpackingException
 
@@ -22,7 +24,6 @@ type _MapFunc[T, S] = Callable[[T], S]
 
 @runtime_checkable
 class OptionProtocol[T](Protocol):
-
     def map[S](self, func: _MapFunc[T, S]) -> OptionProtocol[S]: ...
     def map_or[S](
         self, func: _MapFunc[T, S], default: S
@@ -30,6 +31,7 @@ class OptionProtocol[T](Protocol):
     def is_some(self) -> bool: ...
     def is_nothing(self) -> bool: ...
     def unwrap(self) -> T: ...
+    def __iter__(self) -> Iterator[T]: ...
 
 
 def is_some[T](obj: Option[T]) -> TypeGuard[Some[T]]:
@@ -66,10 +68,12 @@ class Some[T]:
     def unwrap(self) -> T:
         return self.value
 
+    def __iter__(self) -> Iterator[T]:
+        yield self.value
+
 
 @final
 class Nothing:
-
     slots: tuple[()] = ()
     __match_args__: tuple[()] = ()
 
@@ -87,6 +91,10 @@ class Nothing:
 
     def unwrap(self) -> NoReturn:
         raise UnpackingException("Nothing value was unpacked.")
+
+    def __iter__(self) -> Iterator[Never]:
+        return
+        yield  # dummy yield statement  # pyright: ignore[reportUnreachable]
 
 
 type Option[T] = Some[T] | Nothing

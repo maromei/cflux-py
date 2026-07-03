@@ -121,3 +121,15 @@ def test_unwrap():
     with pytest.raises(UnpackingException):
         unwraped_value = nothing.unwrap()
         _ = assert_type(unwraped_value, str)
+
+
+def test_for_unpacking():
+
+    some: Option[str] = get_some_or_nothing(1)
+    nothing: Option[str] = get_some_or_nothing(2)
+
+    for value in some:
+        assert value == "a"
+
+    for value in nothing:
+        assert False, "for iteration over Nothing should not work."
