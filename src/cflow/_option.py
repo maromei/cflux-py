@@ -95,7 +95,7 @@ class Nothing:
     def unwrap(self) -> NoReturn:
         raise UnpackingException("Nothing value was unpacked.")
 
-    def get_some(self) -> NoReturn:
+    def get_some(self) -> _ValueWith[NoReturn]:
         raise _Skip
 
 
