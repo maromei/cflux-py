@@ -37,7 +37,7 @@ Otherwise you can call `scripts/setup` manually.
 ### Development Tools
 
 - Linting: `ruff`
-- Type-checking: `ty`
+- Type-checking: `basedpyright`
 
 ### Internal Dev Commands
 
@@ -64,7 +64,7 @@ Some type checkerr have additional information in a subsection below.
 | `pyrefly`      | &check;       | Failing the exhaustiveness checks in the match statement.                  |
 | `pyright`      | &check;       | &check; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
 | `basedpyright` | &check;       | &quest; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
-| `mypy`         | &cross;       | &quest; Don't wanna deal with stub-files.                                  |
+| `mypy`         | &cross;       | &quest;                                                                    |
 
 ### ty
 
