@@ -1,4 +1,4 @@
-from typing import assert_never, assert_type, Never
+from typing import assert_never, assert_type
 
 import pytest
 
@@ -81,23 +81,18 @@ def test_types_assertion():
             case Nothing():
                 assert False
             case _:
-                a = some_value
-                _ = assert_type(a, Never)
-                assert_never(some_value)
+                assert_never(option)
 
     def assert_match_some_value[T](option: Option[T], value: T):  # pyright: ignore[reportUnusedFunction]
 
         match option:
             case Some(val):
-                a = val
                 assert val == value
                 _ = assert_type(val, T)
             case Nothing():
                 assert False
             case _:
-                a = some_value
-                _ = assert_type(a, Never)
-                assert_never(some_value)
+                assert_never(option)
 
     def assert_match_nothing[T](option: Option[T]): # pyright: ignore[reportUnusedFunction]
         match option:
@@ -106,9 +101,7 @@ def test_types_assertion():
             case Nothing():
                 assert True
             case _:
-                a = some_value
-                _ = assert_type(a, Never)
-                assert_never(some_value)
+                assert_never(option)
 
 
 def test_unwrap():
