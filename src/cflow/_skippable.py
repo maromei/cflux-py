@@ -1,3 +1,5 @@
+from typing import Final
+
 class _Skip(Exception):
     pass
 
@@ -10,7 +12,7 @@ class _Skippable:
         return exc_tp is not None and issubclass(exc_tp, _Skip)
 
 
-Skippable = _Skippable()
+Skippable: Final[_Skippable] = _Skippable()
 
 
 class _ValueWith[T]:

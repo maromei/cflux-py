@@ -1,5 +1,5 @@
 import types
-from _typeshed import Incomplete
+from typing import Final
 
 class _Skip(Exception): ...
 
@@ -7,7 +7,7 @@ class _Skippable:
     def __enter__(self) -> None: ...
     def __exit__(self, exc_tp, *_): ...
 
-Skippable: Incomplete
+Skippable: Final[_Skippable]
 
 class _ValueWith[T]:
     value: T
