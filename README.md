@@ -1,5 +1,46 @@
 # cflow - Explicit Python
 
+## Features
+
+### Option Type
+
+* Represent optional values, freeing `None` to be a usable value.
+  ```python
+  from cflow import Option, Some, Nothing
+  val: Option[int] = Some(42)
+  empty: Option[int] = Nothing()
+  ```
+
+* **Pattern Matching**: Destructure option.
+  ```python
+  match val:
+      case Some(x):
+          print(x)
+      case Nothing():
+          print("Empty")
+  ```
+
+* **Functional Methods**: Transform inner values.
+  ```python
+  val.map(lambda x: x * 2)  # Some(84)
+  empty.map_or(lambda x: x * 2, 0)  # 0
+  ```
+
+* **Unwrapping**: Extract inner value.
+  ```python
+  x: int = val.unwrap()  # 42
+  empty.unwrap()  # raises UnpackingException
+  ```
+
+* **Skippable Blocks**: Skip block execution if value is Nothing.
+  ```python
+  from cflow import Skippable
+
+  with Skippable, val.get_some() as x:
+      print(x)
+  ```
+
+
 ## Architecture
 
 * All classes / functions are re-exported to the packages `__init__.py`
