@@ -1,9 +1,10 @@
+from typing import runtime_checkable
 from cflow._error import UnpackingException as UnpackingException
 from collections.abc import Iterator
-from typing import Callable, Literal, Never, NoReturn, Protocol, TypeGuard, TypeVar, runtime_checkable
+from typing import Callable, Literal, Never, NoReturn, Protocol, TypeGuard, TypeVar
 
-T = TypeVar('T')
-S = TypeVar('S')
+T = TypeVar("T")
+S = TypeVar("S")
 type _MapFunc[T, S] = Callable[[T], S]
 
 @runtime_checkable
@@ -20,7 +21,7 @@ def is_nothing[T](obj: Option[T]) -> TypeGuard[Nothing]: ...
 
 class Some[T]:
     value: T
-    __match_args__: tuple[Literal['value']]
+    __match_args__: tuple[Literal["value"]]
     def __init__(self, value: T) -> None: ...
     def map[S](self, func: _MapFunc[T, S]) -> Some[S]: ...
     def map_or[S](self, func: _MapFunc[T, S], default: S) -> Some[S]: ...
@@ -38,4 +39,5 @@ class Nothing:
     def is_nothing(self) -> Literal[True]: ...
     def unwrap(self) -> NoReturn: ...
     def __iter__(self) -> Iterator[Never]: ...
+
 type Option[T] = Some[T] | Nothing
