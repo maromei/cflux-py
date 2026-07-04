@@ -208,3 +208,14 @@ def test_for_loop_unpacking():
     for err_val in err:
         assert False
     assert not was_called
+
+
+def test_unwrap_or():
+    ok = get_ok_or_err(1)
+    err = get_ok_or_err(2)
+
+    ok_value: int = 1
+    default: str = "default"
+
+    assert ok.unwrap_or(default) == ok_value
+    assert err.unwrap_or(default) == default
