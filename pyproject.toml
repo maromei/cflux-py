@@ -12,6 +12,10 @@ package = true
 [tool.ruff.lint]
 ignore = ["E701"]
 
+[tool.basedpyright]
+reportExplicitAny = false
+reportImplicitStringConcatenation = false
+
 [dependency-groups]
 dev = [
     "basedpyright>=1.38.0",
