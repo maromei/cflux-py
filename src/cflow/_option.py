@@ -25,12 +25,11 @@ type _MapFunc[T, S] = Callable[[T], S]
 @runtime_checkable
 class OptionProtocol[T](Protocol):
     def map[S](self, func: _MapFunc[T, S]) -> OptionProtocol[S]: ...
-    def map_or[S](
-        self, func: _MapFunc[T, S], default: S
-    ) -> OptionProtocol[S]: ...
+    def map_or[S](self, func: _MapFunc[T, S], default: S) -> OptionProtocol[S]: ...
     def is_some(self) -> bool: ...
     def is_nothing(self) -> bool: ...
     def unwrap(self) -> T: ...
+    def unwrap_or[S](self, default: S) -> T | S: ...
     def __iter__(self) -> Iterator[T]: ...
 
 
@@ -68,6 +67,9 @@ class Some[T]:
     def unwrap(self) -> T:
         return self.value
 
+    def unwrap_or[S](self, default: S) -> T:  # pyright: ignore[reportUnusedParameter, reportInvalidTypeVarUse]
+        return self.value
+
     def __iter__(self) -> Iterator[T]:
         yield self.value
 
@@ -91,6 +93,9 @@ class Nothing:
 
     def unwrap(self) -> NoReturn:
         raise UnpackingException("Nothing value was unpacked.")
+
+    def unwrap_or[S](self, default: S) -> S:
+        return default
 
     def __iter__(self) -> Iterator[Never]:
         return
