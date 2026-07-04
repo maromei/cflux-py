@@ -84,7 +84,6 @@ def test_types_assertion():
                 assert_never(option)
 
     def assert_match_some_value[T](option: Option[T], value: T):  # pyright: ignore[reportUnusedFunction]
-
         match option:
             case Some(val):
                 assert val == value
@@ -94,7 +93,7 @@ def test_types_assertion():
             case _:
                 assert_never(option)
 
-    def assert_match_nothing[T](option: Option[T]): # pyright: ignore[reportUnusedFunction]
+    def assert_match_nothing[T](option: Option[T]):  # pyright: ignore[reportUnusedFunction]
         match option:
             case Some():
                 assert False
@@ -117,7 +116,6 @@ def test_unwrap():
 
 
 def test_for_unpacking():
-
     some: Option[str] = get_some_or_nothing(1)
     nothing: Option[str] = get_some_or_nothing(2)
 
@@ -126,3 +124,14 @@ def test_for_unpacking():
 
     for value in nothing:
         assert False, "for iteration over Nothing should not work."
+
+
+def test_unwrap_or():
+    some: Option[str] = get_some_or_nothing(1)
+    nothing: Option[str] = get_some_or_nothing(2)
+
+    some_value: str = "a"
+    default: str = "b"
+
+    assert some.unwrap_or(default) == some_value
+    assert nothing.unwrap_or(default) == default
