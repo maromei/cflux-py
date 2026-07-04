@@ -8,6 +8,8 @@ from cflow._option import (
     Option as Option,
     OptionProtocol as OptionProtocol,
     Some as Some,
+    is_nothing as is_nothing,
+    is_some as is_some,
 )
 from cflow._result import (
     Err as Err,
@@ -30,6 +32,8 @@ __all__ = [
     "Err",
     "is_ok",
     "is_err",
+    "is_some",
+    "is_nothing",
     "Unit",
     "CflowException",
     "UnpackingException",

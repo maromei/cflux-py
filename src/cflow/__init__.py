@@ -2,6 +2,8 @@ from cflow._option import Some as Some
 from cflow._option import Nothing as Nothing
 from cflow._option import Option as Option
 from cflow._option import OptionProtocol as OptionProtocol
+from cflow._option import is_some as is_some
+from cflow._option import is_nothing as is_nothing
 
 from cflow._result import Result as Result
 from cflow._result import Ok as Ok
@@ -27,6 +29,8 @@ __all__ = [
     "Err",
     "is_ok",
     "is_err",
+    "is_some",
+    "is_nothing",
     "Unit",
     "CflowException",
     "UnpackingException",
