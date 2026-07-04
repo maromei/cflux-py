@@ -192,3 +192,19 @@ def test_and_then():
         assert_exception_equal(err3.get(), err_value)
     else:
         assert False
+
+
+def test_for_loop_unpacking():
+    ok = get_ok_or_err(1)
+    err = get_ok_or_err(2)
+
+    was_called: bool = False
+    for ok_val in ok:
+        was_called = True
+        assert ok_val == 1
+    assert was_called
+
+    was_called = False
+    for err_val in err:
+        assert False
+    assert not was_called
