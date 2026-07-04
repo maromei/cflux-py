@@ -35,8 +35,6 @@
 
 * **For Loop unpacking**: Run code in a block if the value is some, using for loops
   ```python
-  from cflow import Skippable
-
   some: Option[str] = Some("a")
   nothing: Option[str] = Nothing()
 
