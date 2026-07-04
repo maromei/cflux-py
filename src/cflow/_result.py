@@ -35,6 +35,7 @@ class ResultProtocol[ValType, ErrType](Protocol):
     ) -> Result[NewValType, ErrType | NewErrType]: ...
     def unwrap(self) -> ValType: ...
     def unwrap_or_raise(self) -> ValType: ...
+    def unwrap_or[NewValType](self, default: NewValType) -> ValType | NewValType: ...
     def get(self) -> ValType | ErrType: ...
     def is_ok(self) -> bool: ...
     def is_err(self) -> bool: ...
@@ -63,9 +64,7 @@ class Ok(Generic[ValType_co]):
     def __init__(self, value: ValType_co) -> None:
         self.value = value
 
-    def map[NewValType](
-        self, func: _MapFunc[ValType_co, NewValType]
-    ) -> Ok[NewValType]:
+    def map[NewValType](self, func: _MapFunc[ValType_co, NewValType]) -> Ok[NewValType]:
         return Ok(func(self.value))
 
     def map_err[ErrType, NewErrType](
@@ -83,6 +82,9 @@ class Ok(Generic[ValType_co]):
         return self.value
 
     def unwrap_or_raise(self) -> ValType_co:
+        return self.value
+
+    def unwrap_or[NewValType](self, default: NewValType) -> ValType_co:  # pyright: ignore[reportUnusedParameter, reportInvalidTypeVarUse]
         return self.value
 
     def get(self) -> ValType_co:
@@ -140,6 +142,9 @@ class Err(Generic[ErrType_co]):
         if check_exception(self.value):
             raise self.value
         raise UnpackingException("Unpacking error: " + str(self.value))
+
+    def unwrap_or[NewValType](self, default: NewValType) -> NewValType:
+        return default
 
     def get(self) -> ErrType_co:
         return self.value
