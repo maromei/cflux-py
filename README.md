@@ -30,6 +30,7 @@
   ```python
   x: int = val.unwrap()  # 42
   empty.unwrap()  # raises UnpackingException
+  y: int = empty.unwrap_or(0)  # 0
   ```
 
 * **For Loop unpacking**: Run code in a block if the value is some, using for loops
@@ -75,6 +76,7 @@
   x: int = success.unwrap()  # 42
   failure.unwrap()  # raises UnpackingException
   failure.unwrap_or_raise()  # raises wrapped exception
+  y: int = failure.unwrap_or(0)  # 0
   ```
 
 * **For Loop unpacking**: Run code in a block if the value is ok, using for loops.
