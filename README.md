@@ -46,6 +46,49 @@
       print("This message will not be printed.")
   ```
 
+### Result Type
+
+* Represent success or error values.
+  ```python
+  from cflow import Result, Ok, Err
+  success: Result[int, str] = Ok(42)
+  failure: Result[int, str] = Err("Error message")
+  ```
+
+* **Pattern Matching**: Destructure result.
+  ```python
+  match success:
+      case Ok(x):
+          print(x)
+      case Err(err):
+          print(err)
+  ```
+
+* **Functional Methods**: Transform inner values.
+  ```python
+  success.map(lambda x: x * 2)  # Ok(84)
+  failure.map_err(lambda err: f"Error: {err}")  # Err("Error: Error message")
+  ```
+
+* **Unwrapping**: Extract inner value.
+  ```python
+  x: int = success.unwrap()  # 42
+  failure.unwrap()  # raises UnpackingException
+  failure.unwrap_or_raise()  # raises wrapped exception
+  ```
+
+* **For Loop unpacking**: Run code in a block if the value is ok, using for loops.
+  ```python
+  success: Result[str, int] = Ok("a")
+  failure: Result[str, int] = Err(1)
+
+  for value in success:
+      print("This message will be printed.")
+
+  for value in failure:
+      print("This message will not be printed.")
+  ```
+
 ## Architecture
 
 * All classes / functions are re-exported to the packages `__init__.py`
