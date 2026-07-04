@@ -14,6 +14,8 @@ from cflow._result import (
     Ok as Ok,
     Result as Result,
     ResultProtocol as ResultProtocol,
+    is_err as is_err,
+    is_ok as is_ok,
 )
 from cflow._unit import Unit as Unit
 
@@ -26,6 +28,8 @@ __all__ = [
     "ResultProtocol",
     "Ok",
     "Err",
+    "is_ok",
+    "is_err",
     "Unit",
     "CflowException",
     "UnpackingException",
