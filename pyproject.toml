@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cflow"
+name = "cflux"
 version = "0.3.0"
 description = "Control flow constructs for python."
 readme = "README.md"
@@ -46,7 +46,7 @@ dev = [
 #############
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/cflow"]
+packages = ["src/cflux"]
 
 [tool.hatch.build.targets.sdist]
 exclude = ["env", "scripts", ".python-version", ".gitignore"]

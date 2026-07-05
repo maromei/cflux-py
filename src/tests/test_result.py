@@ -2,14 +2,13 @@ from typing import assert_type, assert_never
 
 import pytest
 
-from cflow import (
+from cflux import (
     Ok,
     Err,
     Result,
     ResultProtocol,
     Unit,
     UnpackingException,
-    is_ok,
     is_err,
 )
 

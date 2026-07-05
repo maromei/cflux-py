@@ -2,7 +2,7 @@ from typing import assert_never, assert_type
 
 import pytest
 
-from cflow import (
+from cflux import (
     Some,
     Nothing,
     Option,

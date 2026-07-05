@@ -1,9 +1,9 @@
-from cflow._error import (
-    CflowException as CflowException,
+from cflux._error import (
+    CfluxException as CfluxException,
     ExpectedException as ExpectedException,
     UnpackingException as UnpackingException,
 )
-from cflow._option import (
+from cflux._option import (
     Nothing as Nothing,
     Option as Option,
     OptionProtocol as OptionProtocol,
@@ -11,7 +11,7 @@ from cflow._option import (
     is_nothing as is_nothing,
     is_some as is_some,
 )
-from cflow._result import (
+from cflux._result import (
     Err as Err,
     Ok as Ok,
     Result as Result,
@@ -19,7 +19,7 @@ from cflow._result import (
     is_err as is_err,
     is_ok as is_ok,
 )
-from cflow._unit import Unit as Unit
+from cflux._unit import Unit as Unit
 
 __all__ = [
     "Some",
@@ -35,7 +35,7 @@ __all__ = [
     "is_some",
     "is_nothing",
     "Unit",
-    "CflowException",
+    "CfluxException",
     "UnpackingException",
     "ExpectedException",
 ]
