@@ -1,24 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "cflow"
 version = "0.3.0"
 description = "Control flow constructs for python."
 readme = "README.md"
 requires-python = ">=3.13"
+license = "GNU GPLv3"
+license-files = ["LICEN[CS]E"]
+keywords = []
+authors = [
+  { name = "maromei", email = "maromei@proton.me" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
 dependencies = []
 
-[tool.uv]
-package = true
-
-[tool.ruff.lint]
-ignore = ["E701"]
-
-[tool.basedpyright]
-reportExplicitAny = false
-reportImplicitStringConcatenation = false
+[project.urls]
+Documentation = "https://github.com/maromei/cflow#readme"
+Issues = "https://github.com/maromei/cflow/issues"
+Source = "https://github.com/maromei/cflow"
 
 [dependency-groups]
 dev = [
     "basedpyright>=1.38.0",
+    "hatch>=1.17.0",
     "mypy>=2.1.0",
     "pyrefly>=0.52.0",
     "pyright>=1.1.408",
@@ -26,3 +40,35 @@ dev = [
     "ruff>=0.14.14",
     "ty>=0.0.16",
 ]
+
+#############
+### HATCH ###
+#############
+
+[tool.hatch.version]
+path = "src/cflow/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cflow"]
+
+##########
+### UV ###
+##########
+
+[tool.uv]
+package = true
+
+############
+### RUFF ###
+############
+
+[tool.ruff.lint]
+ignore = ["E701"]
+
+####################
+### BASEDPYRIGHT ###
+####################
+
+[tool.basedpyright]
+reportExplicitAny = false
+reportImplicitStringConcatenation = false
