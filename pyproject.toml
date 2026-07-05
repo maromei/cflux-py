@@ -25,9 +25,9 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Documentation = "https://github.com/maromei/cflow#readme"
-Issues = "https://github.com/maromei/cflow/issues"
-Source = "https://github.com/maromei/cflow"
+Documentation = "https://github.com/maromei/cflux-py#readme"
+Issues = "https://github.com/maromei/cflux-py/issues"
+Source = "https://github.com/maromei/cflux-py"
 
 [dependency-groups]
 dev = [
