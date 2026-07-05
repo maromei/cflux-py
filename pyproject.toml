@@ -48,6 +48,9 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/cflow"]
 
+[tool.hatch.build.targets.sdist]
+exclude = ["env", "scripts", ".python-version", ".gitignore"]
+
 ##########
 ### UV ###
 ##########
