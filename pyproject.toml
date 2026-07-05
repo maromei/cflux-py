@@ -45,9 +45,6 @@ dev = [
 ### HATCH ###
 #############
 
-[tool.hatch.version]
-path = "src/cflow/__about__.py"
-
 [tool.hatch.build.targets.wheel]
 packages = ["src/cflow"]
 
