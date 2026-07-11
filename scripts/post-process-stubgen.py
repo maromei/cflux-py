@@ -38,5 +38,5 @@ def post_process_stub(filepath: Path):
         print(f"Post-processed: Added @runtime_checkable to {filepath.name}")
 
 
-for filepath in Path("src/cflux").glob("*.pyi"):
+for filepath in Path("src/cflowpy").glob("*.pyi"):
     post_process_stub(filepath)

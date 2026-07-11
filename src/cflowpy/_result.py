@@ -15,7 +15,7 @@ from typing import (
 from collections.abc import Iterator
 
 
-from cflux._error import UnpackingException
+from cflowpy._error import UnpackingException
 
 
 type _MapFunc[T, S] = Callable[[T], S]

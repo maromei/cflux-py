@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cflux"
+name = "cflowpy"
 version = "0.3.0"
 description = "Control flow constructs for python."
 readme = "README.md"
@@ -25,9 +25,9 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Documentation = "https://github.com/maromei/cflux-py#readme"
-Issues = "https://github.com/maromei/cflux-py/issues"
-Source = "https://github.com/maromei/cflux-py"
+Documentation = "https://github.com/maromei/cflowpy#readme"
+Issues = "https://github.com/maromei/cflowpy/issues"
+Source = "https://github.com/maromei/cflowpy"
 
 [dependency-groups]
 dev = [
@@ -46,7 +46,7 @@ dev = [
 #############
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/cflux"]
+packages = ["src/cflowpy"]
 
 [tool.hatch.build.targets.sdist]
 exclude = ["env", "scripts", ".python-version", ".gitignore"]

@@ -1,12 +1,12 @@
 #!/bin/bash
 
 echo "[1/3] running stubgen"
-uv run stubgen --package cflux --output src/
+uv run stubgen --package cflowpy --output src/
 
 echo "[2/3] post process stubgen"
 uv run scripts/post-process-stubgen.py
 
 echo "[3/3] ruff format generated *.pyi files."
-uv run ruff format src/cflux/*.pyi
+uv run ruff format src/cflowpy/*.pyi
 
 echo "[-/-] done"

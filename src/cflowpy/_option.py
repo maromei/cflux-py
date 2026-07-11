@@ -12,7 +12,7 @@ from typing import (
 )
 from collections.abc import Iterator
 
-from cflux._error import UnpackingException
+from cflowpy._error import UnpackingException
 
 
 T = TypeVar("T")

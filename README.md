@@ -1,4 +1,4 @@
-# cflux - Control Flow Objects for Python
+# cflowpy - Control Flow Objects for Python
 
 ## Features
 
@@ -6,7 +6,7 @@
 
 * Represent optional values, freeing `None` to be a usable value.
   ```python
-  from cflux import Option, Some, Nothing
+  from cflowpy import Option, Some, Nothing
   val: Option[int] = Some(42)
   empty: Option[int] = Nothing()
   ```
@@ -49,7 +49,7 @@
 
 * Represent success or error values.
   ```python
-  from cflux import Result, Ok, Err
+  from cflowpy import Result, Ok, Err
   success: Result[int, str] = Ok(42)
   failure: Result[int, str] = Err("Error message")
   ```
@@ -96,7 +96,7 @@
 --> There is only one place to import everything
 
 ```python
-from cflux import Option, Unit
+from cflowpy import Option, Unit
 ```
 
 * The actual definitions are done in private modules. F.e `_options.py`
@@ -162,7 +162,7 @@ Some type checkerr have additional information in a subsection below.
 
 ```python
 from typing import assert_type, assert_never
-from cflux import Option
+from cflowpy import Option
 
 # snip...: some code that sets some_value
 
@@ -186,7 +186,7 @@ A workaround requires the `typing.cast` function. Simply adding the typehint
 
 ```python
 from typing import assert_type, assert_never, cast
-from cflux import Option
+from cflowpy import Option
 
 # snip...: some code that sets some_value
 
