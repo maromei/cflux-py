@@ -159,9 +159,9 @@ Some type checkerr have additional information in a subsection below.
 | type checker   | is tested for | functionality                                                              |
 | -------------- | ------------- | -------------------------------------------------------------------------- |
 | `ty`           | &check;       | Missing feature in `ty` for match value unpacking.                         |
-| `pyrefly`      | &check;       | Failing the exhaustiveness checks in the match statement.                  |
-| `pyright`      | &check;       | &check; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
-| `basedpyright` | &check;       | &quest; + Non-speced feature: Complain on `Nothing` in a `with` statement. |
+| `pyrefly`      | &check;       | &check;                                                                    |
+| `pyright`      | &check;       | &check;                                                                    |
+| `basedpyright` | &check;       | &check;                                                                    |
 | `mypy`         | &cross;       | &quest;                                                                    |
 
 ### ty
