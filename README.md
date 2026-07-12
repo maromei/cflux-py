@@ -45,6 +45,15 @@
       print("This message will not be printed.")
   ```
 
+* **Default Value Sentinel (`nothing`)**: Define default parameter values without
+  type checker warnings.
+  ```python
+  from cflowpy import Option, nothing
+
+  def func(val: Option[int] = nothing):
+      pass
+  ```
+
 ### Result Type
 
 * Represent success or error values.

@@ -44,3 +44,5 @@ class Nothing:
     def __iter__(self) -> Iterator[Never]: ...
 
 type Option[T] = Some[T] | Nothing
+
+nothing: Nothing

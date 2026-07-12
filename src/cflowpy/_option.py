@@ -103,3 +103,7 @@ class Nothing:
 
 
 type Option[T] = Some[T] | Nothing
+
+
+nothing: Nothing = Nothing()
+

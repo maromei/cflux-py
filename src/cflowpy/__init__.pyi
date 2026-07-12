@@ -10,6 +10,7 @@ from cflowpy._option import (
     Some as Some,
     is_nothing as is_nothing,
     is_some as is_some,
+    nothing as nothing,
 )
 from cflowpy._result import (
     Err as Err,
@@ -24,6 +25,7 @@ from cflowpy._unit import Unit as Unit
 __all__ = [
     "Some",
     "Nothing",
+    "nothing",
     "Option",
     "OptionProtocol",
     "Result",

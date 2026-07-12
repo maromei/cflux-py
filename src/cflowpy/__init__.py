@@ -4,6 +4,7 @@ from cflowpy._option import Option as Option
 from cflowpy._option import OptionProtocol as OptionProtocol
 from cflowpy._option import is_some as is_some
 from cflowpy._option import is_nothing as is_nothing
+from cflowpy._option import nothing as nothing
 
 from cflowpy._result import Result as Result
 from cflowpy._result import Ok as Ok
@@ -21,6 +22,7 @@ from cflowpy._error import ExpectedException as ExpectedException
 __all__ = [
     "Some",
     "Nothing",
+    "nothing",
     "Option",
     "OptionProtocol",
     "Result",

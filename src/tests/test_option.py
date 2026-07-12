@@ -135,3 +135,19 @@ def test_unwrap_or():
 
     assert some.unwrap_or(default) == some_value
     assert nothing.unwrap_or(default) == default
+
+
+def test_nothing_singleton():
+    from cflowpy import nothing as nothing_singleton
+
+    # It should be an instance of Nothing
+    assert isinstance(nothing_singleton, Nothing)
+    assert isinstance(nothing_singleton, OptionProtocol)
+
+    # Using it as a default argument
+    def get_val(opt: Option[int] = nothing_singleton) -> int:
+        return opt.unwrap_or(42)
+
+    assert get_val() == 42
+    assert get_val(Some(10)) == 10
+
